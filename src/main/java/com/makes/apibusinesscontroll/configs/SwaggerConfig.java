@@ -13,23 +13,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SwaggerConfig {
     @Bean
-    GroupedOpenApi publicApi(){
+    public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
                 .group("public-apis")
                 .pathsToMatch("/**")
                 .build();
     }
-    @Bean
-    OpenAPI customOpenApi(){
-        return new OpenAPI()
-                .info(new Info().title("Api title").version("Api version"))
-                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
-                .components(
-                        new Components()
-                                .addSecuritySchemes("bearerAuth", new SecurityScheme()
-                                .type(SecurityScheme.Type.HTTP)
-                                        .scheme("bearer")
-                                        .bearerFormat("JWT")));
-    }
 
+    @Bean
+    public OpenAPI customOpenApi() {
+        return new OpenAPI()
+                .info(new Info().title("Api title").version("Api version"));
+    }
 }

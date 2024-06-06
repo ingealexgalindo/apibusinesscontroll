@@ -9,25 +9,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    private static final String[] SWAGGER_WHITELIST ={
-            "/swagger-ui/**",
-            "/v3/api-docs/**",
-            "/swagger-resources/**",
-            "/swagger-resources"
-
-    };
-    /*
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
-                .authorizeRequests()
-                .dispatcherTypeMatchers(SWAGGER_WHITELIST).permitAll()
-                .anyRequest().autenticated()
-                .and()
-                .httpBasic();
+                .csrf().disable() // Deshabilitar CSRF
+                .authorizeRequests().anyRequest().permitAll(); // Permitir todas las solicitudes sin autenticación
         return http.build();
     }
-
-     */
 }
