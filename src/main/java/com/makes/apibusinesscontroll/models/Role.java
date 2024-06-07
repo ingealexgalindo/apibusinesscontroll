@@ -2,49 +2,46 @@ package com.makes.apibusinesscontroll.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 @Data
-@Getter
-@Setter
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "Users")
-public class User {
+@Table(name = "Roles")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "role_id", nullable = false)
     private Integer id;
 
-    @Column(name = "username", nullable = false)
-    private String username;
+    @Size(max = 255)
+    @NotNull
+    @Column(name = "role_name", nullable = false)
+    private String roleName;
 
-    @Column(name = "password", nullable = false)
-    private String password;
+    @Lob
+    @Column(name = "description")
+    private String description;
 
-    @Column(name = "email")
-    private String email;
-
+    @Size(max = 255)
     @Column(name = "created_by")
     private String createdBy;
 
     @Column(name = "creation_time")
     private LocalDateTime creationTime;
 
+    @Size(max = 255)
     @Column(name = "modified_by")
     private String modifiedBy;
 
     @Column(name = "modification_time")
     private LocalDateTime modificationTime;
-
-    @Column(name = "full_name")
-    private String fullName;
 
 }
