@@ -1,14 +1,18 @@
 package com.makes.apibusinesscontroll.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDateTime;
 
+@Data
 @Getter
 @Setter
 @Entity
@@ -17,7 +21,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id", nullable = false)
-    private Long id;
+    private Integer id;
 
     @Size(max = 255)
     @NotNull
@@ -28,14 +32,33 @@ public class Product {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "purchase_price", precision = 10, scale = 2)
-    private BigDecimal purchasePrice;
+    @ManyToOne()
+    @JoinColumn(name = "category_id")
+    @JsonBackReference
+    private Category category;
 
-    @Column(name = "sale_price", precision = 10, scale = 2)
-    private BigDecimal salePrice;
+    @ManyToOne()
+    @JoinColumn(name = "supplier_id")
+    @JsonBackReference
+    private Supplier supplier;
 
-    @Column(name = "stock")
-    private Integer stock;
+    @Size(max = 50)
+    @Column(name = "unit_of_measure", length = 50)
+    private String unitOfMeasure;
+
+    @Size(max = 100)
+    @Column(name = "barcode", length = 100)
+    private String barcode;
+
+    @Size(max = 100)
+    @Column(name = "sku", length = 100)
+    private String sku;
+
+    @Column(name = "min_stock_level")
+    private Integer minStockLevel;
+
+    @Column(name = "max_stock_level")
+    private Integer maxStockLevel;
 
     @Size(max = 255)
     @Column(name = "created_by")
