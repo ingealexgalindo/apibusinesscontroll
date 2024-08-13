@@ -6,6 +6,7 @@ import com.makes.apibusinesscontroll.models.*;
 import com.makes.apibusinesscontroll.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class ProductService {
 
     private final ProductRepository productRepository;
@@ -90,8 +92,4 @@ public class ProductService {
                 .orElse(null);
     }
 
-
-    public void deleteProduct(Long id) {
-        productRepository.deleteById(id);
-    }
 }
