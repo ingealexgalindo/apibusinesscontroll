@@ -22,12 +22,12 @@ public class ProductCostService {
     @Autowired
     private ProductCostMapper mapper;
 
-    public ProductCostDto createProductCost(ProductCostDto categoryDto) {
-        ProductCost productCost = mapper.toEntity(categoryDto);
+    public ProductCostDto createProductCost(ProductCostDto dto) {
+        ProductCost productCost = mapper.toEntity(dto);
 
         productCost.setCreationTime(LocalDateTime.now());
-        ProductCost savedBrand = repository.save(productCost);
-        return mapper.toDto(savedBrand);
+        ProductCost savedCost = repository.save(productCost);
+        return mapper.toDto(savedCost);
     }
 
     public ProductCostDto getProductCostById(Long id) {
@@ -45,11 +45,11 @@ public class ProductCostService {
 
     public ProductCostDto updateProductCost(Long id, ProductCostDto brandDto) {
         return repository.findById(id)
-                .map(existingBrand -> {
-                    mapper.updateEntityFromDto(brandDto, existingBrand);
-                    existingBrand.setModificationTime(LocalDateTime.now());
-                    ProductCost updatedBrand = repository.save(existingBrand);
-                    return mapper.toDto(updatedBrand);
+                .map(existingProdCost -> {
+                    mapper.updateEntityFromDto(brandDto, existingProdCost);
+                    existingProdCost.setModificationTime(LocalDateTime.now());
+                    ProductCost updatedProductCost = repository.save(existingProdCost);
+                    return mapper.toDto(updatedProductCost);
                 })
                 .orElse(null);
     }

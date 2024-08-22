@@ -11,8 +11,10 @@ import org.mapstruct.factory.Mappers;
 public interface ProductCostMapper {
     ProductCostMapper INSTANCE = Mappers.getMapper(ProductCostMapper.class);
 
+    @Mapping(source = "product.id", target = "productId")
     ProductCostDto toDto(ProductCost productCost);
 
+    @Mapping(source = "productId", target = "product.id")
     ProductCost toEntity(ProductCostDto productCostDto);
 
     @Mapping(target = "creationTime", ignore = true) // Ignora el campo de creación

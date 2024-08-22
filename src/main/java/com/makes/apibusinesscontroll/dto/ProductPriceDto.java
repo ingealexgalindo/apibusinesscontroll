@@ -15,4 +15,6 @@ public class ProductPriceDto {
     private LocalDateTime validFrom;
     private LocalDateTime validTo;
     private Boolean active;
+    private String createdBy;
+    private String modifiedBy;
 }

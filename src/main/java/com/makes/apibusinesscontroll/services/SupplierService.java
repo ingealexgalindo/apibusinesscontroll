@@ -46,11 +46,11 @@ public class SupplierService {
 
     public SupplierDto updateSupplier(Long id, SupplierDto dto) {
         return repository.findById(id)
-                .map(existingBrand -> {
-                    mapper.updateEntityFromDto(dto, existingBrand);
-                    existingBrand.setModificationTime(LocalDateTime.now());
-                    Supplier updatedBrand = repository.save(existingBrand);
-                    return mapper.toDto(updatedBrand);
+                .map(existingSupplier -> {
+                    mapper.updateEntityFromDto(dto, existingSupplier);
+                    existingSupplier.setModificationTime(LocalDateTime.now());
+                    Supplier updatedSupplier = repository.save(existingSupplier);
+                    return mapper.toDto(updatedSupplier);
                 })
                 .orElse(null);
     }

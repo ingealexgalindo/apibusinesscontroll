@@ -5,6 +5,7 @@ import com.makes.apibusinesscontroll.dto.UnitDto;
 import com.makes.apibusinesscontroll.mapper.UnitMapper;
 import com.makes.apibusinesscontroll.models.Unit;
 import com.makes.apibusinesscontroll.repository.UnitRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,12 +16,11 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class UnitService {
-    
+    @Autowired
     private UnitRepository repository;
-    
+    @Autowired
     private UnitMapper mapper;
     
-
     public UnitDto createUnit(UnitDto dto) {
         Unit unit = mapper.toEntity(dto);
 
@@ -44,11 +44,11 @@ public class UnitService {
 
     public UnitDto updateUnit(Long id, UnitDto dto) {
         return repository.findById(id)
-                .map(existingBrand -> {
-                    mapper.updateEntityFromDto(dto, existingBrand);
-                    existingBrand.setModificationTime(LocalDateTime.now());
-                    Unit updatedBrand = repository.save(existingBrand);
-                    return mapper.toDto(updatedBrand);
+                .map(existingUnit -> {
+                    mapper.updateEntityFromDto(dto, existingUnit);
+                    existingUnit.setModificationTime(LocalDateTime.now());
+                    Unit updatedUnit = repository.save(existingUnit);
+                    return mapper.toDto(updatedUnit);
                 })
                 .orElse(null);
     }
